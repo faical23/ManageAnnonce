@@ -8,7 +8,7 @@ const DashboardUser = () => import('./src/views/dashboardUser')
 
 const routes = [
     {
-        path: '/home',
+        path: '/',
         component: Home
     },
     {

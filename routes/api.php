@@ -17,27 +17,39 @@ use App\Http\Controllers\Authcontroller;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+//// auth Api
+Route::prefix('auth')->group(function () {
+    Route::post('/checkemail', [Authcontroller::class, 'Checkemail']);  /// DONE
+    Route::post('/inscription', [Authcontroller::class, 'inscription']);   /// DONE
+    Route::post('/login', [Authcontroller::class, 'login']);   /// DONE
 });
 
 
-//// auth Api
-Route::post('/checkemail', [Authcontroller::class, 'Checkemail']);
-Route::post('/inscription', [Authcontroller::class, 'inscription']);
-Route::post('/login', [Authcontroller::class, 'login']);
-
-
 /// users api
-Route::get('/', [usercontroller::class, 'index']);
-Route::get('/{id}', [usercontroller::class, 'show']);
-Route::put('/{id}', [usercontroller::class, 'update']);
-Route::delete('/{id}', [usercontroller::class, 'destroy']);
+Route::prefix('user')->group(function () {
+    Route::get('/', [usercontroller::class, 'index']);   /// DONE
+    Route::get('/{id}', [usercontroller::class, 'show']);   /// DONE
+    Route::get('/verefication/LoadData', [usercontroller::class, 'LoadData']);   /// DONE
+    Route::put('/{id}', [usercontroller::class, 'update']);  /// DONE
+    Route::delete('/{id}', [usercontroller::class, 'destroy']);  /// DONE
+});
 
 
 //// annonce api
-Route::get('/', [annoncecontroller::class, 'index']);
-Route::get('/{id}', [annoncecontroller::class, 'show']);
-Route::post('/', [annoncecontroller::class, 'store']);
-Route::put('/{id}', [annoncecontroller::class, 'update']);
-Route::delete('/{id}', [annoncecontroller::class, 'destroy']);
+
+Route::prefix('annonce')->group(function () {
+    Route::get('/', [annoncecontroller::class, 'index']);  /// DONE
+    Route::get('/{id}', [annoncecontroller::class, 'show']);  /// DONE
+    Route::get('/user/{id}', [annoncecontroller::class, 'userAnnonce']);  /// DONE
+    Route::post('/', [annoncecontroller::class, 'store']);  /// DONE
+    Route::put('/{id}', [annoncecontroller::class, 'update']);  /// DONE
+    Route::delete('/{id}', [annoncecontroller::class, 'destroy']);  /// DONE
+    Route::put('/approve/{id}', [annoncecontroller::class, 'ApproceAnnonce']);  /// DONE
+    Route::get('/lastfor/{id}', [annoncecontroller::class, 'lastannonce']);/// DONE
+    Route::get('/Search/{titre}', [annoncecontroller::class, 'Searchannonce']);  /// DONE
+    Route::post('/email', [annoncecontroller::class, 'SendEmail']);  /// DONE
+    Route::get('/admin/dashboard', [annoncecontroller::class, 'getAnnonceForAdmine']);  /// DONE
+
+});
+

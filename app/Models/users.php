@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
+
 
 class users extends Model
 {
     use HasFactory;
+    use HasApiTokens;
     protected $table = 'users';
     protected $fillable = [
         'name' ,
@@ -16,6 +19,7 @@ class users extends Model
         'raisonsocial',
         'email',
         'password',
+        'role'
     ];
 
         /**

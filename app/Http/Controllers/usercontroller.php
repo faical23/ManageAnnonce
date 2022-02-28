@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\users;
+use auth;
+
 
 
 class usercontroller extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("auth:sanctum", []);
+   }
     /**
      * Display a listing of the resource.
      *
@@ -15,13 +21,11 @@ class usercontroller extends Controller
      */
     public function index()
     {
-        $user = users::get();
+        $user = users::where('role','user')->get();
         return response()->json([
             "user" => $user,
         ],200);
     }
-
-
 
     /**
      * Display the specified resource.
@@ -70,4 +74,10 @@ class usercontroller extends Controller
         users::where('id',$id)->delete();
         return response()->json([],200);
     }
+
+    public function LoadData()
+    {
+        return auth()->user();
+    }
+
 }
