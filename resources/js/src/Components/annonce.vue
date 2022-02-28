@@ -97,7 +97,7 @@ export default {
                             })
                             .catch(err=>{
                                 console.log(err.response.status)
-                                err.response.status == 413 &&Swal.fire({
+                                (err.response.status == 413 || err.response.status == 500) &&Swal.fire({
                                                         position: 'top-right',
                                                         icon: 'error',
                                                         title: 'size of images is so big please choose another image',

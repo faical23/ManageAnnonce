@@ -158,7 +158,7 @@ class annoncecontroller extends Controller
      */
     public function lastannonce($id)
     {
-        $annonces = annonces::where('isApprove',1)->limit($id)->get();
+        $annonces = annonces::where('isApprove',1)->orderBy('created_at','DESC')->limit($id)->get();
         return response()->json([
             "annonces" => $annonces,
         ],200);
