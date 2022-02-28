@@ -74,6 +74,9 @@ class annoncecontroller extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'files' => 'required|max:255|max:2048',
+        ]);
         $annonce = annonces::create([
             'user_id' => auth()->user()->id,
             'nomDeAnnonce' => auth()->user()->name,

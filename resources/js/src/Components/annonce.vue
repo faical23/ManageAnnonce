@@ -9,8 +9,9 @@
                         <input type="text" placeholder="title" v-model="titre"  required title="nom invalide">
                     </div>
                     <div class="form__inputs__Name">
-                        <input type="text" placeholder="adress" v-model="adress"  required title="prénom invalide">
+                        <input @keyup="location_function" type="text" placeholder="adress" v-model="adress"  required title="prénom invalide">
                     </div>
+                    <iframe style='border: none;border-radius: 10px' width="100%" height="150" :src='location_function()' scrolling="no" marginheight="0" marginwidth="0" ></iframe>
                     <div class="form__inputs__Phone">
                         <input type="text" placeholder="phone" v-model="phone"  required title="Age invalide">
                     </div>
@@ -96,7 +97,6 @@ export default {
                                 console.log(res)
                             })
                             .catch(err=>{
-                                console.log(err.response.status)
                                 (err.response.status == 413 || err.response.status == 500) &&Swal.fire({
                                                         position: 'top-right',
                                                         icon: 'error',
@@ -130,7 +130,12 @@ export default {
                 }
 
 
-            }
+            },
+            location_function() {
+                const location = this.adress
+                console.log(location)
+                return `https://maps.google.com/maps?q=${location}&output=embed`;
+            },
     }
 }
 </script>
